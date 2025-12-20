@@ -22,34 +22,38 @@ interface ButtonProps {
   className?: string;
 }
 
-// Button Primary: Sleek, pill-shaped, subtle glow
+// Button Primary: Sleek, pill-shaped, subtle glow with refined spring physics
 export const ButtonPrimary: React.FC<ButtonProps> = ({ children, onClick, className = '' }) => (
   <motion.button 
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
+    whileHover={{ scale: 1.02, y: -1 }}
+    whileTap={{ scale: 0.98, y: 0 }}
+    transition={{ type: "spring", stiffness: 400, damping: 25 }}
     onClick={onClick}
     className={`
       relative overflow-hidden group bg-brand-primary text-white px-8 py-4 rounded-full 
       font-sans font-medium tracking-wide shadow-[0_10px_20px_-10px_rgba(15,47,36,0.5)]
-      hover:shadow-[0_20px_30px_-10px_rgba(15,47,36,0.6)] transition-all duration-300
+      hover:shadow-[0_20px_30px_-10px_rgba(15,47,36,0.6)] 
       ${className}
     `}
   >
-    <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
+    <span className="relative z-10 flex items-center justify-center gap-2 transition-transform duration-300 group-hover:gap-3">
+      {children}
+    </span>
     <div className="absolute inset-0 bg-gradient-to-r from-brand-secondary to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
   </motion.button>
 );
 
-// Button Secondary: Minimalist outline with backdrop blur
+// Button Secondary: Minimalist outline with backdrop blur and subtle lift
 export const ButtonSecondary: React.FC<ButtonProps> = ({ children, onClick, className = '' }) => (
   <motion.button 
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
+    whileHover={{ scale: 1.02, y: -1 }}
+    whileTap={{ scale: 0.98, y: 0 }}
+    transition={{ type: "spring", stiffness: 400, damping: 25 }}
     onClick={onClick}
     className={`
       px-8 py-4 rounded-full font-sans font-medium tracking-wide text-brand-primary
       border border-brand-primary/20 hover:border-brand-primary bg-transparent
-      hover:bg-brand-primary/5 transition-all duration-300
+      hover:bg-brand-primary/5 transition-colors duration-300
       ${className}
     `}
   >
@@ -94,7 +98,7 @@ interface BookPlaceholderProps {
 export const BookPlaceholder: React.FC<BookPlaceholderProps> = ({ title, author = "Classic Edition", color = "from-[#1a3c30] to-[#0d1f18]" }) => (
   <motion.div 
     className="group relative w-full aspect-[2/3] perspective-1000 cursor-pointer"
-    whileHover={{ y: -8 }}
+    whileHover={{ y: -6 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
     {/* Shadow */}

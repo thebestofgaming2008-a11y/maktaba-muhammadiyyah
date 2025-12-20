@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingBag, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, ShoppingCart, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Header: React.FC = () => {
@@ -59,6 +59,12 @@ export const Header: React.FC = () => {
               <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors relative">
                 <ShoppingBag size={20} strokeWidth={1.5} />
                 <span className="absolute top-1.5 right-1 h-2 w-2 bg-brand-accent rounded-full ring-2 ring-white"></span>
+              </button>
+              <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors relative">
+                <ShoppingCart size={20} strokeWidth={1.5} />
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent text-[10px] font-medium text-white ring-2 ring-white">
+                  3
+                </span>
               </button>
               <button 
                 className="md:hidden p-2 text-brand-primary"
