@@ -22,7 +22,7 @@ export default function App() {
         <BestSellers />
       </main>
 
-      <footer className="bg-[#0b241c] text-white py-16 relative z-10 border-t border-white/5">
+      <footer id="footer" className="bg-[#0b241c] text-white py-16 relative z-10 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 

@@ -51,7 +51,7 @@ export const ReviewsCarousel: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-brand-surface overflow-hidden relative">
+    <section id="reviews" className="py-24 bg-brand-surface overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 text-center mb-16">
         <h2 className="font-serif text-3xl md:text-4xl text-brand-primary mb-4">Voices of the Community</h2>
         <div className="w-16 h-1 bg-brand-accent mx-auto rounded-full opacity-50"></div>
@@ -67,7 +67,6 @@ export const ReviewsCarousel: React.FC = () => {
               if (position > 1) position -= reviews.length;
               
               // Only render standard 3 (-1, 0, 1) for the carousel effect
-              // We simplify for this demo to just show active and hide others slightly
               const isActive = index === currentIndex;
               const isPrev = (index === (currentIndex - 1 + reviews.length) % reviews.length);
               const isNext = (index === (currentIndex + 1) % reviews.length);
@@ -100,9 +99,6 @@ export const ReviewsCarousel: React.FC = () => {
                 rotateY = -15;
               }
 
-              // Responsive check - on mobile we just stack or slide differently
-              // For simplicity in this code block, we use CSS classes for mobile hiding
-              
               return (
                 <motion.div
                   key={review.id}

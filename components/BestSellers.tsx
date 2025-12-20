@@ -3,7 +3,7 @@ import { BookPlaceholder } from './SharedUI';
 
 export const BestSellers: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
+    <section id="bestsellers" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div>

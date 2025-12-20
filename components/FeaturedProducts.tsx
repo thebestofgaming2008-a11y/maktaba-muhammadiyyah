@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const FeaturedProducts: React.FC = () => {
   return (
-    <section className="py-24 bg-brand-bg relative">
+    <section id="featured" className="py-24 bg-brand-bg relative">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           

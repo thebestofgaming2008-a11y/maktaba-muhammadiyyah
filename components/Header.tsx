@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ShoppingBag, ShoppingCart, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { smoothScrollTo } from './SharedUI';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,6 +14,12 @@ export const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    smoothScrollTo(id);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ export const Header: React.FC = () => {
           <nav className="flex items-center justify-between">
             
             {/* Logo */}
-            <a href="#" className="relative z-10 group">
+            <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="relative z-10 group">
               <div className="flex flex-col leading-none">
                 <span className="font-serif text-2xl md:text-3xl font-bold text-brand-primary tracking-tighter">
                   Maktaba.
@@ -40,15 +47,34 @@ export const Header: React.FC = () => {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-10">
-              {['Collection', 'Best Sellers', 'About', 'Contact'].map((item) => (
-                <a 
-                  key={item} 
-                  href="#" 
-                  className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
-                >
-                  {item}
-                </a>
-              ))}
+              <a 
+                href="#featured" 
+                onClick={(e) => handleNavClick(e, 'featured')}
+                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
+              >
+                Collection
+              </a>
+              <a 
+                href="#bestsellers" 
+                onClick={(e) => handleNavClick(e, 'bestsellers')}
+                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
+              >
+                Best Sellers
+              </a>
+              <a 
+                href="#reviews" 
+                onClick={(e) => handleNavClick(e, 'reviews')}
+                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
+              >
+                Reviews
+              </a>
+              <a 
+                href="#footer" 
+                onClick={(e) => handleNavClick(e, 'footer')}
+                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
+              >
+                Contact
+              </a>
             </div>
 
             {/* Icons */}
@@ -93,10 +119,10 @@ export const Header: React.FC = () => {
               </button>
             </div>
             <div className="p-6 flex flex-col gap-6 text-2xl font-serif">
-              <a href="#" className="block hover:text-brand-accent">Collection</a>
-              <a href="#" className="block hover:text-brand-accent">Best Sellers</a>
-              <a href="#" className="block hover:text-brand-accent">About</a>
-              <a href="#" className="block hover:text-brand-accent">Contact</a>
+              <a href="#featured" onClick={(e) => handleNavClick(e, 'featured')} className="block hover:text-brand-accent">Collection</a>
+              <a href="#bestsellers" onClick={(e) => handleNavClick(e, 'bestsellers')} className="block hover:text-brand-accent">Best Sellers</a>
+              <a href="#reviews" onClick={(e) => handleNavClick(e, 'reviews')} className="block hover:text-brand-accent">Reviews</a>
+              <a href="#footer" onClick={(e) => handleNavClick(e, 'footer')} className="block hover:text-brand-accent">Contact</a>
             </div>
           </motion.div>
         )}

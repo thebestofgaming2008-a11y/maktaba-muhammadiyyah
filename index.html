@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -19,13 +19,13 @@
                 primary: '#0F2F24', // Deep Forest (Almost Black/Green)
                 secondary: '#2C5E4E', // Softer Green
                 accent: '#C6A87C', // Muted Metallic Gold
-                muted: '#9CA3AF',
+                muted: '#6B7280',
                 border: '#E5E5E5',
               }
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              serif: ['Playfair Display', 'serif'],
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              serif: ['Cormorant Garamond', 'serif'],
               arabic: ['Amiri', 'serif'],
             },
             backgroundImage: {
@@ -36,30 +36,19 @@
         }
       }
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.3.1",
-    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
-    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react",
-    "framer-motion": "https://esm.sh/framer-motion@11.0.8?external=react,react-dom",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
 <style>
-  /* Custom Scrollbar for a premium feel */
+  html {
+    scroll-behavior: smooth;
+  }
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
     background: #FAFAF9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #E5E5E5;
-    border-radius: 4px;
+    background: #D1D5DB;
+    border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #C6A87C;
@@ -68,7 +57,29 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  .text-shimmer {
+    background: linear-gradient(90deg, #0F2F24 0%, #C6A87C 50%, #0F2F24 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
 </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
 </head>
   <body class="bg-brand-bg text-brand-primary antialiased selection:bg-brand-primary selection:text-white overflow-x-hidden">
     <div id="root"></div>
