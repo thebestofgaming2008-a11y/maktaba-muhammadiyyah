@@ -1,65 +1,43 @@
 import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { BookPlaceholder, TrustBullet } from './components/SharedUI';
-import { CheckCircle, ShieldCheck, Truck } from 'lucide-react';
+import { TrustBullet, NoiseOverlay } from './components/SharedUI';
+import { CheckCircle2, ShieldCheck, Globe2 } from 'lucide-react';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-brand-bg relative overflow-hidden">
+      <NoiseOverlay />
+      
       <Header />
       
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <Hero />
         
-        {/* Trust Indicators / Quick Features (Transition section) */}
-        <div className="bg-white border-y border-gray-100 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center md:justify-around gap-6 md:gap-12">
-            <TrustBullet icon={<CheckCircle size={20} />} text="Authentic Sources & Curated Editions" />
-            <TrustBullet icon={<ShieldCheck size={20} />} text="Secure Checkout & Privacy" />
-            <TrustBullet icon={<Truck size={20} />} text="Fast International Shipping" />
+        {/* Minimal Trust Strip */}
+        <div className="border-t border-brand-border/60 bg-white/50 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12 text-center md:text-left">
+            <h3 className="font-serif text-2xl text-brand-primary">Why choose us?</h3>
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+              <TrustBullet icon={<CheckCircle2 size={18} />} text="Authentic Sources" />
+              <TrustBullet icon={<ShieldCheck size={18} />} text="Curated Quality" />
+              <TrustBullet icon={<Globe2 size={18} />} text="Global Shipping" />
+            </div>
           </div>
         </div>
-
-        {/* Placeholder for "Active/Live" feeling - Featured Section */}
-        <section className="py-24 bg-white relative overflow-hidden">
-           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-end justify-between mb-12">
-                 <div>
-                    <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">Weekly Bestsellers</h2>
-                    <p className="text-gray-500">Discover what our community is reading right now.</p>
-                 </div>
-                 <a href="#" className="hidden md:block text-brand-green font-medium hover:text-brand-gold transition-colors">View all bestsellers &rarr;</a>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
-                 <div className="w-full aspect-[2/3]">
-                    <BookPlaceholder title="The Sealed Nectar" height="h-full" color="bg-emerald-900" />
-                 </div>
-                 <div className="w-full aspect-[2/3]">
-                    <BookPlaceholder title="Fortress of the Muslim" height="h-full" color="bg-brand-gold" />
-                 </div>
-                 <div className="w-full aspect-[2/3] hidden md:block">
-                    <BookPlaceholder title="Riyad as-Salihin" height="h-full" color="bg-blue-900" />
-                 </div>
-                 <div className="w-full aspect-[2/3] hidden lg:block">
-                    <BookPlaceholder title="Stories of the Prophets" height="h-full" color="bg-teal-800" />
-                 </div>
-                 <div className="w-full aspect-[2/3] hidden lg:block">
-                    <BookPlaceholder title="Don't Be Sad" height="h-full" color="bg-red-900" />
-                 </div>
-              </div>
-              
-              <div className="mt-8 text-center md:hidden">
-                 <a href="#" className="text-brand-green font-medium hover:text-brand-gold transition-colors">View all bestsellers &rarr;</a>
-              </div>
-           </div>
-        </section>
       </main>
 
-      <footer className="bg-brand-green text-white py-12 border-t border-brand-greenLight">
-        <div className="max-w-7xl mx-auto px-4 text-center opacity-80 text-sm">
-          <p>&copy; 2024 Maktaba Muhammadiyya. All rights reserved.</p>
+      <footer className="bg-brand-primary text-white py-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-center md:text-left">
+             <span className="font-serif text-2xl font-bold tracking-tight">Maktaba.</span>
+             <p className="text-white/40 text-sm mt-2">© 2024 Maktaba Muhammadiyya.</p>
+          </div>
+          <div className="flex gap-8 text-sm text-white/60">
+            <a href="#" className="hover:text-white transition-colors">Instagram</a>
+            <a href="#" className="hover:text-white transition-colors">Twitter</a>
+            <a href="#" className="hover:text-white transition-colors">Email</a>
+          </div>
         </div>
       </footer>
     </div>

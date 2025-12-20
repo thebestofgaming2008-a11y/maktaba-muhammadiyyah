@@ -7,20 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               brand: {
-                cream: '#FDFCF8',
-                green: '#1A4D2E',
-                greenLight: '#2F6F46',
-                gold: '#D4AF37',
-                goldLight: '#E5C565',
-                stone: '#F5F5F0',
-                text: '#1C1917'
+                bg: '#FAFAF9', // Warm Stone/Porcelain
+                surface: '#FFFFFF',
+                primary: '#0F2F24', // Deep Forest (Almost Black/Green)
+                secondary: '#2C5E4E', // Softer Green
+                accent: '#C6A87C', // Muted Metallic Gold
+                muted: '#9CA3AF',
+                border: '#E5E5E5',
               }
             },
             fontFamily: {
@@ -28,19 +28,9 @@
               serif: ['Playfair Display', 'serif'],
               arabic: ['Amiri', 'serif'],
             },
-            animation: {
-              'fade-in': 'fadeIn 0.8s ease-out forwards',
-              'slide-up': 'slideUp 0.8s ease-out forwards',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
+            backgroundImage: {
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+              'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
             }
           }
         }
@@ -59,8 +49,28 @@
   }
 }
 </script>
+<style>
+  /* Custom Scrollbar for a premium feel */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAFAF9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #E5E5E5;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C6A87C;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+</style>
 </head>
-  <body class="bg-white text-gray-900 antialiased selection:bg-brand-green selection:text-white">
+  <body class="bg-brand-bg text-brand-primary antialiased selection:bg-brand-primary selection:text-white overflow-x-hidden">
     <div id="root"></div>
   </body>
 </html>

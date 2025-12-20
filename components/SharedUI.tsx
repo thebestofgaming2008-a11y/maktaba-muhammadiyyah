@@ -1,15 +1,18 @@
 import React, { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
-// Geometric Pattern Background
+// Modern noise overlay for texture
+export const NoiseOverlay: React.FC = () => (
+  <div className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-noise mix-blend-soft-light"></div>
+);
+
+// Abstract Background Pattern (Subtle)
 export const GeometricPattern: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={`absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] ${className}`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <pattern id="islamic-geo" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path d="M20 0L40 20L20 40L0 20Z" fill="currentColor" />
-        <circle cx="20" cy="20" r="2" fill="currentColor" />
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#islamic-geo)" />
+  <svg className={`absolute inset-0 w-full h-full pointer-events-none opacity-[0.02] ${className}`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+     <pattern id="modern-geo" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+        <path d="M50 0L100 50L50 100L0 50Z" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+     </pattern>
+    <rect width="100%" height="100%" fill="url(#modern-geo)" />
   </svg>
 );
 
@@ -19,83 +22,121 @@ interface ButtonProps {
   className?: string;
 }
 
-// Buttons
+// Button Primary: Sleek, pill-shaped, subtle glow
 export const ButtonPrimary: React.FC<ButtonProps> = ({ children, onClick, className = '' }) => (
-  <button 
+  <motion.button 
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     onClick={onClick}
-    className={`bg-brand-green text-white px-8 py-3.5 rounded-full font-medium tracking-wide hover:bg-brand-greenLight hover:-translate-y-0.5 transition-all duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${className}`}
+    className={`
+      relative overflow-hidden group bg-brand-primary text-white px-8 py-4 rounded-full 
+      font-sans font-medium tracking-wide shadow-[0_10px_20px_-10px_rgba(15,47,36,0.5)]
+      hover:shadow-[0_20px_30px_-10px_rgba(15,47,36,0.6)] transition-all duration-300
+      ${className}
+    `}
   >
-    {children}
-  </button>
+    <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-brand-secondary to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+  </motion.button>
 );
 
+// Button Secondary: Minimalist outline with backdrop blur
 export const ButtonSecondary: React.FC<ButtonProps> = ({ children, onClick, className = '' }) => (
-  <button 
+  <motion.button 
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     onClick={onClick}
-    className={`border border-brand-green text-brand-green px-8 py-3.5 rounded-full font-medium tracking-wide hover:bg-brand-green hover:text-white hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2 ${className}`}
+    className={`
+      px-8 py-4 rounded-full font-sans font-medium tracking-wide text-brand-primary
+      border border-brand-primary/20 hover:border-brand-primary bg-transparent
+      hover:bg-brand-primary/5 transition-all duration-300
+      ${className}
+    `}
   >
     {children}
-  </button>
+  </motion.button>
 );
 
-export const ButtonTertiary: React.FC<ButtonProps> = ({ children, onClick, className = '' }) => (
-  <button 
+// Chips: Modern, pill-shaped tabs
+export const CategoryChip: React.FC<{ label: string; isActive?: boolean; onClick?: () => void }> = ({ label, isActive, onClick }) => (
+  <motion.button 
+    whileHover={{ y: -2 }}
+    whileTap={{ scale: 0.95 }}
     onClick={onClick}
-    className={`text-brand-green underline-offset-4 hover:underline font-medium transition-colors ${className}`}
+    className={`
+      px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
+      ${isActive 
+        ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' 
+        : 'bg-white text-gray-500 hover:text-brand-primary shadow-sm hover:shadow-md border border-gray-100'}
+    `}
   >
-    {children}
-  </button>
-);
-
-// Chips
-export const CategoryChip: React.FC<{ label: string }> = ({ label }) => (
-  <button className="px-5 py-2.5 bg-white border border-gray-100 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all duration-200 whitespace-nowrap">
     {label}
-  </button>
+  </motion.button>
 );
 
-// Trust Bullets
+// Trust Bullets: Clean, icon-driven
 export const TrustBullet: React.FC<{ icon: ReactNode, text: string }> = ({ icon, text }) => (
-  <div className="flex items-center gap-3 text-sm md:text-base font-medium text-gray-700 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100 hover:border-brand-green/20 transition-colors">
-    <span className="text-brand-green">{icon}</span>
+  <div className="flex items-center gap-3 text-sm font-medium text-brand-primary/80 group">
+    <span className="p-2 rounded-full bg-brand-accent/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-brand-accent transition-colors duration-300">
+      {icon}
+    </span>
     <span>{text}</span>
   </div>
 );
 
 interface BookPlaceholderProps {
   title: string;
+  author?: string;
   color?: string;
-  height?: string;
 }
 
-// Book Placeholder - Enhanced for "Live" feel
-export const BookPlaceholder: React.FC<BookPlaceholderProps> = ({ title, color = "bg-brand-green", height = "h-64" }) => (
-  <div className={`relative ${height} w-full rounded-r-lg rounded-l-sm shadow-xl flex flex-col items-center justify-center p-4 text-center transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 cursor-pointer group bg-white border-l-[6px] border-l-brand-gold overflow-hidden`}>
-    
-    {/* Texture/Cover Color */}
-    <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-90 rounded-r-lg`}></div>
-    <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
-    
-    {/* Content */}
-    <div className="relative z-10 w-full h-full flex flex-col items-center justify-center border-[1px] border-white/20 p-2 m-1">
-       {/* Decorative Arch */}
-       <div className="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-16 border-t-2 border-r-2 border-l-2 border-white/30 rounded-t-full"></div>
-       
-       <div className="mt-8 text-center">
-        <h3 className="text-white font-serif font-bold text-lg md:text-xl leading-tight drop-shadow-md mb-1">{title}</h3>
-        <div className="w-8 h-0.5 bg-brand-gold mx-auto my-2 opacity-80"></div>
-        <span className="text-white/80 text-xs font-sans tracking-widest uppercase">Classic Edition</span>
-       </div>
-    </div>
+// Modern Book Card: 3D Lift effect, no "cartoon" look
+export const BookPlaceholder: React.FC<BookPlaceholderProps> = ({ title, author = "Classic Edition", color = "from-[#1a3c30] to-[#0d1f18]" }) => (
+  <motion.div 
+    className="group relative w-full aspect-[2/3] perspective-1000 cursor-pointer"
+    whileHover={{ y: -8 }}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+  >
+    {/* Shadow */}
+    <div className="absolute bottom-0 left-4 right-4 h-4 bg-black/20 blur-xl rounded-[50%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4"></div>
 
-    {/* Hover Overlay */}
-    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20 backdrop-blur-[2px]">
-      <button className="bg-white text-gray-900 px-4 py-2 rounded-full text-sm font-bold transform scale-90 group-hover:scale-100 transition-transform shadow-lg">
-        Quick View
-      </button>
-    </div>
+    {/* Book Cover */}
+    <div className={`
+      relative w-full h-full rounded-md overflow-hidden shadow-md group-hover:shadow-2xl transition-all duration-500
+      bg-gradient-to-br ${color}
+    `}>
+      {/* Texture Overlay */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leather.png')] opacity-30 mix-blend-overlay"></div>
+      
+      {/* Sheen */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-    {/* Spine Shadow effect */}
-    <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 to-transparent pointer-events-none"></div>
-  </div>
+      {/* Spine Detail (Left side) */}
+      <div className="absolute left-0 top-0 bottom-0 w-2 bg-black/20 z-10"></div>
+      <div className="absolute left-2 top-0 bottom-0 w-[1px] bg-white/10 z-10"></div>
+
+      {/* Content */}
+      <div className="absolute inset-0 p-6 flex flex-col justify-between items-center text-center z-20">
+        <div className="w-full pt-4">
+           {/* Header Decoration */}
+           <div className="w-8 h-8 border border-brand-accent/30 rounded-full mx-auto mb-4 flex items-center justify-center">
+             <div className="w-1.5 h-1.5 bg-brand-accent rounded-full"></div>
+           </div>
+        </div>
+
+        <div>
+          <h3 className="font-serif text-white text-xl leading-snug tracking-wide mb-2 drop-shadow-md">
+            {title}
+          </h3>
+          <p className="text-brand-accent text-xs uppercase tracking-[0.2em] font-medium opacity-90">
+            {author}
+          </p>
+        </div>
+
+        <div className="w-full pb-2">
+           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent/40 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </motion.div>
 );
