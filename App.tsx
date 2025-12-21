@@ -1,25 +1,29 @@
 import React from 'react';
+import { TopBar } from './components/TopBar';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { ReviewsCarousel } from './components/ReviewsCarousel';
 import { FeaturedProducts } from './components/FeaturedProducts';
-import { CategoryMarquee } from './components/CategoryMarquee';
+import { CategoryCarousel } from './components/CategoryCarousel';
+import { DealsSection } from './components/DealsSection';
 import { BestSellers } from './components/BestSellers';
+import { ReviewsCarousel } from './components/ReviewsCarousel';
 import { NoiseOverlay } from './components/SharedUI';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-brand-bg relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-brand-bg relative overflow-x-hidden">
       <NoiseOverlay />
       
+      <TopBar />
       <Header />
       
       <main className="flex-grow relative z-10">
         <Hero />
-        <ReviewsCarousel />
         <FeaturedProducts />
-        <CategoryMarquee />
+        <CategoryCarousel />
+        <DealsSection />
         <BestSellers />
+        <ReviewsCarousel />
       </main>
 
       <footer id="footer" className="bg-[#0b241c] text-white py-16 relative z-10 border-t border-white/5">
@@ -72,6 +76,11 @@ export default function App() {
 
             <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30">
                 <p>© 2024 Maktaba Muhammadiyya. All rights reserved.</p>
+                <div className="flex gap-4">
+                  <span>Visa</span>
+                  <span>Mastercard</span>
+                  <span>PayPal</span>
+                </div>
             </div>
         </div>
       </footer>

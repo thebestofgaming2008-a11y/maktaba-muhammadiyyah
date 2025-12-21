@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingBag, ShoppingCart, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, ShoppingCart, Menu, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { smoothScrollTo } from './SharedUI';
 
@@ -24,82 +24,72 @@ export const Header: React.FC = () => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'py-3 bg-white/80 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.04)] border-b border-gray-100' 
-            : 'py-6 bg-transparent'
+            ? 'bg-brand-bg/95 backdrop-blur-md shadow-sm border-b border-brand-border' 
+            : 'bg-brand-bg'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <nav className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-4 pt-4 md:pt-6">
+          <div className="flex flex-col gap-4">
             
-            {/* Logo */}
-            <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="relative z-10 group">
-              <div className="flex flex-col leading-none">
-                <span className="font-serif text-2xl md:text-3xl font-bold text-brand-primary tracking-tighter">
-                  Maktaba.
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-brand-accent font-medium mt-1 group-hover:text-brand-primary transition-colors">
-                  Muhammadiyya
-                </span>
-              </div>
-            </a>
+            {/* Row 1: Logo, Nav, Icons */}
+            <div className="flex items-center justify-between">
+                {/* Logo */}
+                <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group">
+                  <div className="flex flex-col leading-none">
+                    <span className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tighter">
+                      Maktaba.
+                    </span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-brand-accent font-medium mt-1 group-hover:text-brand-primary transition-colors">
+                      Muhammadiyya
+                    </span>
+                  </div>
+                </a>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-10">
-              <a 
-                href="#featured" 
-                onClick={(e) => handleNavClick(e, 'featured')}
-                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
-              >
-                Collection
-              </a>
-              <a 
-                href="#bestsellers" 
-                onClick={(e) => handleNavClick(e, 'bestsellers')}
-                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
-              >
-                Best Sellers
-              </a>
-              <a 
-                href="#reviews" 
-                onClick={(e) => handleNavClick(e, 'reviews')}
-                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
-              >
-                Reviews
-              </a>
-              <a 
-                href="#footer" 
-                onClick={(e) => handleNavClick(e, 'footer')}
-                className="text-sm font-medium text-brand-primary/70 hover:text-brand-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-primary after:transition-all hover:after:w-full"
-              >
-                Contact
-              </a>
+                {/* Desktop Nav */}
+                <nav className="hidden md:flex items-center gap-8">
+                  <a href="#featured" onClick={(e) => handleNavClick(e, 'featured')} className="text-sm font-semibold uppercase tracking-wide text-brand-primary/80 hover:text-brand-primary transition-colors">Collection</a>
+                  <a href="#categories" onClick={(e) => handleNavClick(e, 'categories')} className="text-sm font-semibold uppercase tracking-wide text-brand-primary/80 hover:text-brand-primary transition-colors">Genres</a>
+                  <a href="#deals" onClick={(e) => handleNavClick(e, 'deals')} className="text-sm font-semibold uppercase tracking-wide text-brand-accent hover:text-brand-secondary transition-colors">Offers</a>
+                </nav>
+
+                {/* Icons */}
+                <div className="flex items-center gap-2 md:gap-4">
+                  <button className="hidden md:block p-2 text-brand-primary/70 hover:text-brand-primary transition-colors">
+                    <User size={22} strokeWidth={1.5} />
+                  </button>
+                  <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors relative">
+                    <ShoppingCart size={22} strokeWidth={1.5} />
+                    <span className="absolute -top-0 -right-0 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent text-[10px] font-bold text-white ring-2 ring-brand-bg">
+                      2
+                    </span>
+                  </button>
+                  <button 
+                    className="md:hidden p-2 text-brand-primary"
+                    onClick={() => setMobileMenuOpen(true)}
+                  >
+                    <Menu size={24} strokeWidth={1.5} />
+                  </button>
+                </div>
             </div>
 
-            {/* Icons */}
-            <div className="flex items-center gap-4">
-              <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors">
-                <Search size={20} strokeWidth={1.5} />
-              </button>
-              <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors relative">
-                <ShoppingBag size={20} strokeWidth={1.5} />
-                <span className="absolute top-1.5 right-1 h-2 w-2 bg-brand-accent rounded-full ring-2 ring-white"></span>
-              </button>
-              <button className="p-2 text-brand-primary/70 hover:text-brand-primary transition-colors relative">
-                <ShoppingCart size={20} strokeWidth={1.5} />
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent text-[10px] font-medium text-white ring-2 ring-white">
-                  3
-                </span>
-              </button>
-              <button 
-                className="md:hidden p-2 text-brand-primary"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <Menu size={24} strokeWidth={1.5} />
-              </button>
+            {/* Row 2: Extended Search Bar */}
+            <div className="w-full">
+                <div className="relative group">
+                    <input 
+                        type="text" 
+                        placeholder="Search by title, author, or ISBN..." 
+                        className="w-full bg-white border border-brand-border rounded-lg px-4 py-3 pl-12 text-sm text-brand-primary placeholder:text-brand-muted/70 focus:outline-none focus:ring-1 focus:ring-brand-accent focus:border-brand-accent transition-all shadow-sm group-hover:shadow-md"
+                    />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted group-hover:text-brand-primary transition-colors" size={18} />
+                    <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-primary text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded hover:bg-brand-secondary transition-colors">
+                        Search
+                    </button>
+                </div>
             </div>
-          </nav>
+
+          </div>
         </div>
       </header>
 
@@ -107,22 +97,32 @@ export const Header: React.FC = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-50 bg-brand-bg md:hidden flex flex-col"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-brand-bg flex flex-col shadow-2xl"
           >
             <div className="p-6 flex justify-between items-center border-b border-gray-100">
-              <span className="font-serif text-xl font-bold">Menu</span>
-              <button onClick={() => setMobileMenuOpen(false)}>
+              <span className="font-serif text-2xl font-bold text-brand-primary">Menu</span>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <X size={24} strokeWidth={1.5} />
               </button>
             </div>
-            <div className="p-6 flex flex-col gap-6 text-2xl font-serif">
-              <a href="#featured" onClick={(e) => handleNavClick(e, 'featured')} className="block hover:text-brand-accent">Collection</a>
-              <a href="#bestsellers" onClick={(e) => handleNavClick(e, 'bestsellers')} className="block hover:text-brand-accent">Best Sellers</a>
-              <a href="#reviews" onClick={(e) => handleNavClick(e, 'reviews')} className="block hover:text-brand-accent">Reviews</a>
-              <a href="#footer" onClick={(e) => handleNavClick(e, 'footer')} className="block hover:text-brand-accent">Contact</a>
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+              <a href="#featured" onClick={(e) => handleNavClick(e, 'featured')} className="text-xl font-serif text-brand-primary border-b border-gray-100 pb-4">Collection</a>
+              <a href="#categories" onClick={(e) => handleNavClick(e, 'categories')} className="text-xl font-serif text-brand-primary border-b border-gray-100 pb-4">Browse Genres</a>
+              <a href="#deals" onClick={(e) => handleNavClick(e, 'deals')} className="text-xl font-serif text-brand-accent border-b border-gray-100 pb-4">Special Offers</a>
+              <a href="#bestsellers" onClick={(e) => handleNavClick(e, 'bestsellers')} className="text-xl font-serif text-brand-primary border-b border-gray-100 pb-4">Best Sellers</a>
+              
+              <div className="mt-auto pt-6">
+                  <button className="w-full bg-brand-primary text-white py-4 rounded-lg font-bold uppercase tracking-widest text-sm mb-4">
+                      My Account
+                  </button>
+                  <p className="text-center text-xs text-brand-muted">
+                      Need help? <a href="#" className="underline">Contact Support</a>
+                  </p>
+              </div>
             </div>
           </motion.div>
         )}

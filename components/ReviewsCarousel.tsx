@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 const reviews = [
   {
@@ -44,110 +44,88 @@ export const ReviewsCarousel: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  // Auto-rotate
+  // Auto-rotate with a longer interval for a calmer feel
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
+    const timer = setInterval(nextSlide, 8000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section id="reviews" className="py-24 bg-brand-surface overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
-        <h2 className="font-serif text-3xl md:text-4xl text-brand-primary mb-4">Voices of the Community</h2>
-        <div className="w-16 h-1 bg-brand-accent mx-auto rounded-full opacity-50"></div>
+    <section id="reviews" className="py-24 bg-brand-surface relative overflow-hidden border-t border-brand-border/30">
+      
+      {/* Subtle Background Icon */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-brand-primary/[0.03] pointer-events-none">
+        <Quote size={400} />
       </div>
 
-      <div className="relative h-[400px] flex items-center justify-center perspective-1000">
-        <div className="relative w-full max-w-4xl h-full flex justify-center items-center">
-          <AnimatePresence mode="popLayout">
-            {reviews.map((review, index) => {
-              // Calculate relative position to handle infinite loop logic visually
-              let position = index - currentIndex;
-              if (position < -1) position += reviews.length;
-              if (position > 1) position -= reviews.length;
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+        >
+            <h2 className="font-serif text-3xl md:text-4xl text-brand-primary mb-2">Voices of the Community</h2>
+            <div className="h-0.5 w-12 bg-brand-accent/50 mx-auto rounded-full" />
+        </motion.div>
+
+        <div className="relative min-h-[280px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="flex flex-col items-center max-w-2xl"
+            >
+              <div className="flex gap-1 mb-8">
+                {[...Array(reviews[currentIndex].rating)].map((_, i) => (
+                  <Star key={i} size={16} className="fill-brand-accent text-brand-accent" />
+                ))}
+              </div>
               
-              // Only render standard 3 (-1, 0, 1) for the carousel effect
-              const isActive = index === currentIndex;
-              const isPrev = (index === (currentIndex - 1 + reviews.length) % reviews.length);
-              const isNext = (index === (currentIndex + 1) % reviews.length);
+              <p className="font-serif text-2xl md:text-3xl text-brand-primary leading-relaxed mb-10">
+                "{reviews[currentIndex].text}"
+              </p>
 
-              if (!isActive && !isPrev && !isNext) return null;
-
-              let x = 0;
-              let scale = 1;
-              let opacity = 1;
-              let zIndex = 10;
-              let rotateY = 0;
-
-              if (isActive) {
-                x = 0;
-                scale = 1;
-                opacity = 1;
-                zIndex = 10;
-                rotateY = 0;
-              } else if (isPrev) {
-                x = -350; // shift left
-                scale = 0.8;
-                opacity = 0.5;
-                zIndex = 5;
-                rotateY = 15;
-              } else if (isNext) {
-                x = 350; // shift right
-                scale = 0.8;
-                opacity = 0.5;
-                zIndex = 5;
-                rotateY = -15;
-              }
-
-              return (
-                <motion.div
-                  key={review.id}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ 
-                    x: x, 
-                    scale: scale, 
-                    opacity: opacity,
-                    zIndex: zIndex,
-                    rotateY: rotateY
-                  }}
-                  transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-                  className={`absolute w-[90%] md:w-[600px] bg-white p-8 md:p-12 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border border-brand-border flex flex-col items-center text-center cursor-pointer ${isActive ? 'pointer-events-auto' : 'pointer-events-none md:pointer-events-auto'}`}
-                  onClick={() => {
-                     if(isPrev) prevSlide();
-                     if(isNext) nextSlide();
-                  }}
-                >
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} size={20} className="fill-brand-accent text-brand-accent" />
-                    ))}
-                  </div>
-                  
-                  <p className="font-serif text-xl md:text-2xl text-brand-primary leading-relaxed mb-8">
-                    "{review.text}"
-                  </p>
-
-                  <div className="mt-auto">
-                    <h4 className="font-bold text-brand-primary tracking-wide">{review.name}</h4>
-                    <span className="text-sm text-brand-muted uppercase tracking-wider">{review.role}</span>
-                  </div>
-                  
-                  {/* Decorative Quote Mark */}
-                  <div className="absolute top-6 left-8 text-8xl font-serif text-brand-accent opacity-10 leading-none">“</div>
-                </motion.div>
-              );
-            })}
+              <div className="text-center">
+                <h4 className="font-bold text-brand-primary tracking-wide text-sm">{reviews[currentIndex].name}</h4>
+                <span className="text-xs text-brand-muted uppercase tracking-widest mt-1 block">{reviews[currentIndex].role}</span>
+              </div>
+            </motion.div>
           </AnimatePresence>
         </div>
-      </div>
 
-      <div className="flex justify-center gap-4 mt-8">
-        <button onClick={prevSlide} className="p-3 rounded-full border border-brand-border hover:bg-brand-primary hover:text-white transition-colors">
-          <ChevronLeft size={20} />
-        </button>
-        <button onClick={nextSlide} className="p-3 rounded-full border border-brand-border hover:bg-brand-primary hover:text-white transition-colors">
-          <ChevronRight size={20} />
-        </button>
+        {/* Minimal Navigation */}
+        <div className="flex justify-center gap-6 mt-12 items-center">
+          <button 
+            onClick={prevSlide} 
+            className="p-2 text-brand-primary/40 hover:text-brand-primary transition-colors hover:bg-brand-primary/5 rounded-full"
+            aria-label="Previous review"
+          >
+            <ChevronLeft size={24} strokeWidth={1.5} />
+          </button>
+          
+          <div className="flex gap-2">
+            {reviews.map((_, idx) => (
+                <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-6 bg-brand-primary' : 'w-1.5 bg-brand-primary/20 hover:bg-brand-primary/40'}`}
+                    aria-label={`Go to review ${idx + 1}`}
+                />
+            ))}
+          </div>
+
+          <button 
+            onClick={nextSlide} 
+            className="p-2 text-brand-primary/40 hover:text-brand-primary transition-colors hover:bg-brand-primary/5 rounded-full"
+            aria-label="Next review"
+          >
+            <ChevronRight size={24} strokeWidth={1.5} />
+          </button>
+        </div>
       </div>
     </section>
   );
