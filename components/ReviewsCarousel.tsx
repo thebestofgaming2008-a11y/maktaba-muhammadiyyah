@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
@@ -44,12 +44,6 @@ export const ReviewsCarousel: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  // Auto-rotate with a longer interval for a calmer feel
-  useEffect(() => {
-    const timer = setInterval(nextSlide, 8000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section id="reviews" className="py-24 bg-brand-surface relative overflow-hidden border-t border-brand-border/30">
       
@@ -73,10 +67,10 @@ export const ReviewsCarousel: React.FC = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               className="flex flex-col items-center max-w-2xl"
             >
               <div className="flex gap-1 mb-8">

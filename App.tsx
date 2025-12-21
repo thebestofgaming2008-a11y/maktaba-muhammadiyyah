@@ -11,13 +11,13 @@ import { NoiseOverlay } from './components/SharedUI';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-brand-bg relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-brand-bg relative">
       <NoiseOverlay />
       
       <TopBar />
       <Header />
       
-      <main className="flex-grow relative z-10">
+      <main className="flex-grow relative z-10 overflow-x-hidden">
         <Hero />
         <FeaturedProducts />
         <CategoryCarousel />

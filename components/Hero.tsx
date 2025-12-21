@@ -2,19 +2,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ButtonPrimary, smoothScrollTo, GeometricPattern } from './SharedUI';
 
-// Custom component for the glowing geometric marker
-const GlowingStar = () => (
-  <div className="relative flex items-center justify-center w-6 h-6 mr-1.5">
-    {/* Ambient Glow Blur */}
-    <div className="absolute inset-0 bg-brand-accent/30 blur-[6px] rounded-full animate-pulse" />
+// Custom component for the glowing geometric spark
+const GlowingSpark = () => (
+  <div className="relative flex items-center justify-center w-6 h-6 mr-2">
+    {/* Soft Outer Glow */}
+    <div className="absolute inset-0 bg-brand-accent/20 blur-[8px] rounded-full animate-pulse" />
     
-    {/* Sharp Geometric Star */}
+    {/* The Spark Shape (4-point star) */}
     <svg 
       viewBox="0 0 24 24" 
       fill="currentColor" 
-      className="w-3.5 h-3.5 text-brand-accent relative z-10 drop-shadow-[0_0_3px_rgba(198,168,124,0.8)]"
+      className="w-4 h-4 text-brand-accent relative z-10 drop-shadow-[0_0_5px_rgba(198,168,124,0.6)]"
     >
-       <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+       <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
     </svg>
   </div>
 );
@@ -73,7 +73,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="flex flex-wrap justify-center gap-x-10 gap-y-4 pt-10 border-t border-brand-border/40 max-w-3xl mx-auto"
+            className="flex flex-wrap justify-center gap-x-12 gap-y-4 pt-10 border-t border-brand-border/40 max-w-3xl mx-auto"
         >
             {[
               "Global Shipping",
@@ -81,7 +81,7 @@ export const Hero: React.FC = () => {
               "Expert Curation"
             ].map((text, idx) => (
               <div key={idx} className="flex items-center gap-1 group cursor-default">
-                <GlowingStar />
+                <GlowingSpark />
                 <span className="text-xs font-bold uppercase tracking-widest text-brand-primary/80 group-hover:text-brand-primary transition-colors">
                   {text}
                 </span>
