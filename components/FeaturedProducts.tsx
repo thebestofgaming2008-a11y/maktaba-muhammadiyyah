@@ -219,8 +219,8 @@ export const FeaturedProducts: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Interactive Pagination Indicators */}
-          <div className="absolute bottom-8 left-6 right-6 md:left-auto md:right-12 md:bottom-12 flex justify-center md:justify-end gap-3 z-20">
+          {/* Interactive Pagination Indicators - Repositioned for Mobile */}
+          <div className="absolute top-6 right-6 md:top-auto md:bottom-12 md:right-12 flex justify-end gap-3 z-20">
              {products.map((_, idx) => (
                 <button 
                   key={idx}
