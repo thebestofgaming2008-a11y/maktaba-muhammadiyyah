@@ -6,6 +6,7 @@ import { smoothScrollTo } from './SharedUI';
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,16 +36,28 @@ export const Header: React.FC = () => {
             
             {/* Row 1: Logo, Nav, Icons */}
             <div className="flex items-center justify-between">
-                {/* Logo */}
-                <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group">
-                  <div className="flex flex-col leading-none">
-                    <span className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tighter">
-                      Maktaba.
-                    </span>
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-brand-accent font-medium mt-1 group-hover:text-brand-primary transition-colors">
-                      Muhammadiyya
-                    </span>
-                  </div>
+                {/* Logo Image with Text Fallback */}
+                <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group transition-transform active:scale-95 block">
+                  {!logoError ? (
+                    <img 
+                      src="/logo2nd.jpg" 
+                      alt="Maktaba Muhammadiyya" 
+                      className="h-12 md:h-16 w-auto object-contain"
+                      onError={(e) => {
+                        setLogoError(true);
+                        console.warn("LOGO MISSING: Please create a 'public' folder in your project root and place 'logo2nd.jpg' inside it.");
+                      }}
+                    />
+                  ) : (
+                    <div className="flex flex-col leading-tight">
+                        <span className="font-serif text-2xl md:text-3xl font-bold text-brand-primary">
+                           Maktaba
+                        </span>
+                        <span className="font-serif text-sm md:text-base tracking-widest uppercase text-brand-accent">
+                           Muhammadiyya
+                        </span>
+                    </div>
+                  )}
                 </a>
 
                 {/* Desktop Nav */}

@@ -94,34 +94,23 @@ interface BookPlaceholderProps {
   color?: string;
 }
 
-export const BookPlaceholder: React.FC<BookPlaceholderProps> = ({ title, author = "Premium Edition", color = "from-[#1a3c30] to-[#0d1f18]" }) => (
-  <div className="relative w-full aspect-[2/3] perspective-1000">
-    <div className={`
-      relative w-full h-full rounded-sm overflow-hidden
-      bg-gradient-to-br ${color}
-    `}>
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leather.png')] opacity-30 mix-blend-overlay"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10"></div>
-      <div className="absolute left-0 top-0 bottom-0 w-3 bg-black/30 z-10"></div>
-      <div className="absolute left-3 top-0 bottom-0 w-[1px] bg-white/5 z-10"></div>
-      <div className="absolute inset-0 p-6 flex flex-col justify-between items-center text-center z-20">
-        <div className="w-full pt-4">
-           <div className="w-10 h-10 border border-brand-accent/40 rounded-full mx-auto mb-4 flex items-center justify-center">
-             <div className="w-2 h-2 bg-brand-accent rounded-full animate-pulse"></div>
-           </div>
-        </div>
-        <div>
-          <h3 className="font-serif text-white text-2xl leading-tight tracking-wide mb-3 px-2">
-            {title}
-          </h3>
-          <p className="text-brand-accent text-[10px] uppercase tracking-[0.3em] font-bold opacity-80">
-            {author}
-          </p>
-        </div>
-        <div className="w-full pb-2">
-           <div className="w-16 h-[2px] bg-brand-accent/40 mx-auto"></div>
-        </div>
-      </div>
+export const BookPlaceholder: React.FC<BookPlaceholderProps> = ({ title }) => (
+  <div className="relative w-full aspect-[2/3] group overflow-hidden rounded-lg shadow-md bg-brand-bg/50">
+    {/* Real Image Placeholder */}
+    <img 
+      src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?auto=format&fit=crop&q=80&w=800" 
+      alt={title}
+      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+    />
+    
+    {/* Dark Overlay on Hover */}
+    <div className="absolute inset-0 bg-brand-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+    {/* Quick View Button */}
+    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+       <button className="bg-white text-brand-primary px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl hover:bg-brand-accent transition-colors">
+         Quick View
+       </button>
     </div>
   </div>
 );
