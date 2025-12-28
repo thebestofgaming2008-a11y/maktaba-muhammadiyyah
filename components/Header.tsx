@@ -6,7 +6,6 @@ import { smoothScrollTo } from './SharedUI';
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,28 +35,13 @@ export const Header: React.FC = () => {
             
             {/* Row 1: Logo, Nav, Icons */}
             <div className="flex items-center justify-between">
-                {/* Logo Image with Text Fallback */}
-                <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group transition-transform active:scale-95 block">
-                  {!logoError ? (
-                    <img 
-                      src="/logo2nd.jpg" 
-                      alt="Maktaba Muhammadiyya" 
-                      className="h-12 md:h-16 w-auto object-contain"
-                      onError={(e) => {
-                        setLogoError(true);
-                        console.warn("LOGO MISSING: Please create a 'public' folder in your project root and place 'logo2nd.jpg' inside it.");
-                      }}
-                    />
-                  ) : (
-                    <div className="flex flex-col leading-tight">
-                        <span className="font-serif text-2xl md:text-3xl font-bold text-brand-primary">
-                           Maktaba
-                        </span>
-                        <span className="font-serif text-sm md:text-base tracking-widest uppercase text-brand-accent">
-                           Muhammadiyya
-                        </span>
-                    </div>
-                  )}
+                {/* Logo Image */}
+                <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="block hover:opacity-90 transition-opacity">
+                  <img 
+                    src="/logo2nd.jpg" 
+                    alt="Maktaba Muhammadiyya" 
+                    className="h-12 md:h-16 w-auto object-contain"
+                  />
                 </a>
 
                 {/* Desktop Nav */}

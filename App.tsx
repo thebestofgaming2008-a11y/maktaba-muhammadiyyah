@@ -33,9 +33,9 @@ export default function App() {
                 {/* Brand Column */}
                 <div className="col-span-1 md:col-span-1">
                     <img 
-                      src="logo.png" 
+                      src="/logo2nd.jpg" 
                       alt="Maktaba Muhammadiyya Logo" 
-                      className="h-16 w-auto brightness-0 invert opacity-90 mb-6"
+                      className="h-16 w-auto mb-6 rounded-lg opacity-90"
                     />
                     <p className="text-white/50 text-sm leading-relaxed">
                         Authentic Islamic books for the modern seeker. Curated with care, delivered with excellence.
